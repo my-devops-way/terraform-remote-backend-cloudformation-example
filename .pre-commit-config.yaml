@@ -1,0 +1,12 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+  - repo: 'https://github.com/adrienverge/yamllint'
+    rev: v1.20.0
+    hooks:
+      - id: 'yamllint'
+        args: ['.']

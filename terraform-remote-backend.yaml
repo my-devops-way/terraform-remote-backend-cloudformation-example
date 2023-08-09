@@ -1,0 +1,43 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "S3 Bucket and DynamoDB for terraform remote state"
+
+Parameters:
+  BucketName:
+    Description: "name of bucket"
+    Type: String
+  DynamoDBTableName:
+    Description: "Name of the dynamodb table"
+    Type: String
+
+Resources:
+  Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Ref BucketName
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: "test"
+          Value: "value"
+
+  DynamoTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName: !Ref DynamoDBTableName
+      AttributeDefinitions:
+        - AttributeName: "LockID"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "LockID"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 3
+        WriteCapacityUnits: 3
+Outputs:
+  BucketName:
+    Description: "name of bucket"
+    Value: !Ref Bucket
+  DynamoDBTableName:
+    Description: "name of the dynamodb table"
+    Value: !Ref DynamoTable

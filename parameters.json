@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "BucketName",
+    "ParameterValue": "terraform-remote-backend-state-example"
+  },
+  {
+    "ParameterKey": "DynamoDBTableName",
+    "ParameterValue": "terraform-lock-state-example"
+  }
+]
