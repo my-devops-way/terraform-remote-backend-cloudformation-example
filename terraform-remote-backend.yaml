@@ -9,6 +9,14 @@ Parameters:
   DynamoDBTableName:
     Description: "Name of the dynamodb table"
     Type: String
+  TerraformUser:
+    Description: "Terraform User"
+    Type: String
+    Default: "terraform"
+  CloudformationUser:
+    Description: "Cloudformation User"
+    Type: String
+    Default: "cloudformation"
 
 Resources:
   Bucket:
@@ -20,7 +28,47 @@ Resources:
       Tags:
         - Key: "test"
           Value: "value"
-
+  BucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref Bucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "DenyNotTerraformUsers"
+            Effect: "Deny"
+            Principal:
+              AWS: "*"
+            Action:
+              - "*"
+            Resource:
+              - !Sub "arn:aws:s3:::${Bucket}"
+              - !Sub "arn:aws:s3:::${Bucket}/*"
+            Condition:
+              StringEquals:
+                "aws:PrincipalType":
+                  - "User"
+              StringNotLike:
+                "aws:username":
+                  - !Ref TerraformUser
+                  - !Ref CloudformationUser
+          - Sid: "TerraformPermisions"
+            Effect: "Deny"
+            Principal:
+              AWS: "*"
+            NotAction:
+              - "s3:ListBucket"
+              - "s3:GetBucketVersioning"
+              - "s3:GetObject"
+              - "s3:PutObject"
+            Resource:
+              - !Sub "arn:aws:s3:::${Bucket}/*"
+            Condition:
+              StringEquals:
+                "aws:PrincipalType": "User"
+              StringLike:
+                "aws:username":
+                  - !Ref TerraformUser
   DynamoTable:
     Type: "AWS::DynamoDB::Table"
     Properties:
