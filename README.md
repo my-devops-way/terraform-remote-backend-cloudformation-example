@@ -1,5 +1,8 @@
 # terraform-remote-backend-cloudformation-example
+
 Example for deploying an S3 bucket and a DynamoDB table to be used as remote backend for terraform.
+
+![aws_s3_cloudfront](https://github.com/my-devops-way/cicd/blob/main/svg/infrastructure/terraform_aws_backend_s3_dynamo.svg?raw=true)
 
 ## create stack
 
