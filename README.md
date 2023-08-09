@@ -40,5 +40,5 @@ aws cloudformation execute-change-set \
 
 ```bash
 aws cloudformation delete-stack \
---stack-name my-stack
+--stack-name <stack name>
 ```
