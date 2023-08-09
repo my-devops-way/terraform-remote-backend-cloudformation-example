@@ -18,7 +18,7 @@ aws cloudformation create-stack \
 ```bash
 aws cloudformation create-change-set \
 --stack-name <stack name> \
---change-set-name  dynamodb \
+--change-set-name  <change set name> \
 --parameters=file://parameters.json \
 --template-body file://terraform-remote-backend.yaml
 ```
