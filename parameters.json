@@ -6,5 +6,13 @@
   {
     "ParameterKey": "DynamoDBTableName",
     "ParameterValue": "terraform-lock-state-example"
+  },
+  {
+    "ParameterKey": "TerraformUser",
+    "ParameterValue": "terraform"
+  },
+  {
+    "ParameterKey": "CloudformationUser",
+    "ParameterValue": "cloudformation"
   }
 ]
